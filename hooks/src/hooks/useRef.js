@@ -9,7 +9,7 @@ function UseRef(){
 
 
 
-    const [forceReRender,setForceReRender] = useState(true);
+  
 
     const onChangeUseRef = () =>{
         htmlRef.current.style.color = 'red';

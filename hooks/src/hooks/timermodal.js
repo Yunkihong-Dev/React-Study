@@ -3,8 +3,6 @@ import { useEffect,  useRef, useState} from "react";
 function TimerModal(){
     const [count, setCount] = useState(60);
     let intervalRef = useRef(null);
-
-    
     useEffect(() => {
         console.log("timer mount!");
       

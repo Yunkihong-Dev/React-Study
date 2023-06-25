@@ -3,15 +3,15 @@ import SignInForm from "./components/Signin/Signin";
 import SignUpForm from "./components/Signup/Signup";
 import { flexCenter } from "../../styles/common";
 import theme , { PALETTE } from "../../styles/theme";
+import { useState } from "react";
 
 const MainPage = () => {
-  let isFormLogin = true;
+  const [isFormLogin, setIsFormLogin] = useState(true);
 
   const onClickFormHeader = (e) => {
     const { innerText } = e.target;
-    if (innerText === "LOGIN") return (isFormLogin = true);
-    isFormLogin = false;
-    console.log(isFormLogin);
+    if (innerText === "LOGIN") return (setIsFormLogin(true));
+    setIsFormLogin(false);
   };
   // const handleClickFormHeader = (e) =>{
   // }
@@ -26,7 +26,7 @@ const MainPage = () => {
           SIGN
         </S.SignUpHeader>
       </S.Header>
-      {isFormLogin ? <SignInForm /> : <SignUpForm />}
+      {isFormLogin ? <SignInForm /> : <SignUpForm setIsFormLogin={setIsFormLogin}/>}
     </S.Container>
   );
 };

@@ -6,20 +6,20 @@ flexCenter,
 modalBackGround,
 } from "../../../../styles/common";
 
-const TodoAddModal = ({onAddToDo}) => {
+const TodoAddModal = ({onAddToDo, onClose}) => {
 
     return (
         <S.Wrapper>
-            <S.Form>
+            <S.Form onSubmit={onAddToDo}>
                 <S.Title>
                     <span>ADD TODO LIST</span> 
-                    <button>x</button>
+                    <button onClick={onClose}>x</button>
                 </S.Title>
                 <S.Content>
-                    <input placeholder="제목을 입력해주세요" />
-                    <textarea placeholder="할 일 내용을 입력해주세요"></textarea>
+                    <input placeholder="제목을 입력해주세요" name="title"/>
+                    <textarea placeholder="할 일 내용을 입력해주세요" name="content"></textarea>
                 </S.Content>
-                <S.Button onClick={onAddToDo}>ADD</S.Button>
+                <S.Button>ADD</S.Button>
             </S.Form>
         </S.Wrapper>
     );

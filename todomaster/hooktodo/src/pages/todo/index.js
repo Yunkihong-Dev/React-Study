@@ -1,5 +1,5 @@
-import React from "react";
-import {useParams} from "react-router-dom";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import BasicButton from "../../components/Button/Button";
 import styled from "styled-components";
 import { flexAlignCenter, flexCenter } from "../../styles/common";
@@ -8,69 +8,102 @@ import TodoList from "./components/List/todo-list";
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
-const TodoPage = () =>{
-    const params = useParams();
+import useModal from "../../hooks/use-modal";
 
-    const toastOption = {
-        autoClose : 1000,
-        theme : 'colored'
-    };
+const TodoPage = () => {
+  const params = useParams();
+  const [ isModalOpen, toggleModal] = useModal(false);
+  const [todoList, setTodoList] = useState([
+    {
+      id: 1,
+      title: "example1",
+      content: "content1",
+      state: false,
+    },
+    {
+      id: 2,
+      title: "example2",
+      content: "content2",
+      state: false,
+    },
+    {
+      id: 3,
+      title: "example3",
+      content: "content3",
+      state: false,
+    },
+  ]);
 
-    const addTodo = () =>{
-    return new Promise ((resolve) =>setTimeout(resolve, 1000))
-    };
+  const addTodo = (title, content) => {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        const newTodo = {
+          id: Math.floor(Math.random() * 100000),
+          state: false,
+          title,
+          content,
+        };
+        resolve(newTodo);
+      }, 3000)
+    ).then((todo) => {
+      console.log(todo);
+      setTodoList([todo, ...todoList]);
+      toggleModal(); // 모달 닫기
+    });
+  };
 
-    const showTodoToastMessage = (e) => {
-        e.preventDefault();
-            toast.promise(addTodo, {
-            pending: 'TODO LOADING',
-            success: "TODO SUCEESS",
-            error: "TODO ERROR"
-            })
-     };
-//     const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 3000));
-// toast.promise(
-//     resolveAfter3Sec,
-//     {
-//       pending: 'Promise is pending',
-//       success: 'Promise resolved 👌',
-//       error: 'Promise rejected 🤯'
-//     }
-// )
-    return (
+  const showTodoToastMessage = (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const content = e.target.content.value;
+    toast.promise(addTodo(title, content), {
+      pending: 'TODO LOADING',
+      success: "TODO SUCCESS",
+      error: "TODO ERROR"
+    });
+  };
+
+  const toastOption = {
+    autoClose: 1000,
+    theme: 'colored'
+  };
+
+  return (
     <>
-        <TodoAddModal onAddToDo={showTodoToastMessage}/>
-        <S.Wrapper>
-            <S.Container>
-                <S.Title>List</S.Title>
-                <S.Content>  
-                    <TodoList/>
-                </S.Content>
-                <S.ButtonBox>
-                    <BasicButton variant = {"primary"} size={"full"}>
-                        추가
-                    </BasicButton>
-                </S.ButtonBox>
-            </S.Container>
-        </S.Wrapper>
-        <ToastContainer {...toastOption}/>
+      {isModalOpen && <TodoAddModal onAddToDo={showTodoToastMessage} onClose={toggleModal} />}
+      <Wrapper>
+        <Container>
+          <Title>List</Title>
+          <Content>
+            <TodoList todoList={todoList} />
+          </Content>
+          <ButtonBox>
+            <BasicButton variant="primary" size="full" onClick={toggleModal}>
+              추가
+            </BasicButton>
+          </ButtonBox>
+        </Container>
+      </Wrapper>
+      <ToastContainer {...toastOption} />
     </>
-    );
+  );
 };
+
 export default TodoPage;
- 
 const Wrapper = styled.div`
-    height: calc(100vh - 60px); 
-    padding-bottom: 60px;
-    ${flexCenter};
+  height: calc(100vh - 60px);
+  padding-bottom: 60px;
+  ${flexCenter};
 `;
+
 const Container = styled.div`
-    width: 420px;
-    height: 100%;
-    background-color: ${({ theme }) => theme.PALETTE.white}; 
-    border-radius: 8px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); 
-    position: relative;
+  width: 420px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.PALETTE.white};
+  border-radius: 8px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  position: relative
+
 `;
 const Title = styled.h1`
     background-color: ${({ theme }) => theme.PALETTE.primary[300]}; 

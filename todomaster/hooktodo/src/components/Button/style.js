@@ -54,5 +54,10 @@ const Button = styled.button`
     :hover{
         opacity: 0.7;
     }
+    :disabled, :disabled:hover{
+    background-color: ${({theme}) => theme.PALETTE.secondary};
+    opacity: 0.7;
+    }
+    
  `;
 export default Button;
