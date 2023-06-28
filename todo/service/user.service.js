@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const signUp = async(req, res) => {
-
   try{
     const existUser = await User.findOne({
       where: {
@@ -16,7 +15,7 @@ const signUp = async(req, res) => {
     // 있는 유저인지
       return res.status(400).json({
         status: false,
-        message: "이미 사용 중인 이메일입니다"
+        meesage: "이미 사용 중인 이메일입니다"
       })
     }
 

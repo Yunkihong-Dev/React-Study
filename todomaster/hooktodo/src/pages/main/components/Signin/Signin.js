@@ -4,6 +4,7 @@ import useInputs from '../../../../hooks/use-inputs';
 import * as S from '../../style';
 import theme from '../../../../styles/theme';
 import {useNavigate} from 'react-router-dom';
+import Axios from "axios";
 
 const SignInForm = ()=>{
     const [{email, password},onChangeForm] = useInputs({
@@ -57,15 +58,26 @@ const SignInForm = ()=>{
         console.log(e.target.email.value, e.target.password.value); 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        if(email === "test" && password === "test"){
+        Axios.post("http://localhost:3030/user/sign-in",{ email : email, password : password })
+        .then((response)=>{
+        console.log(response);
+        if(response.data.token){
+            alert("로그인이 되었습니다.");
             return navigation('/todo/1',{
                 state:{
                     email,
                     password
                 }
             })
-        }
-    };
+        }})
+        .catch((err)=>{
+            if(err.response.status ===400){
+                alert("잘못입력하셨습니다.")
+            }
+        })
+           
+        
+    };  
     
     return (
         <S.Form onSubmit={onPressSignIn}>
