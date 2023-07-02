@@ -96,15 +96,14 @@ const SignUpForm = ({setIsFormLogin}) => {
     if(!isPasswordConfirm) return;
     console.log("email : "+email+"password : "+password)
    
-    axios.post("http://localhost:3030/user/sign-up", { email: email, password: password })
-  .then((response) => {
+    axios.post("/user/sign-up", { email: email, password: password })
+    .then((response) => {
     console.log(response);
     if (response.status === 200) {
       // 회원가입 성공
       const data = response.data.message;
       alert(data);
       setIsFormLogin(true)
-      // TODO: 원하는 동작 수행
     }
   })
   .catch((error) => {
@@ -114,11 +113,9 @@ const SignUpForm = ({setIsFormLogin}) => {
       alert(data)
       console.log(data);
       setIsFormLogin(false);
-      // TODO: 원하는 오류 처리 동작 수행
     } else {
       // 기타 오류
       alert(error);
-      // TODO: 원하는 오류 처리 동작 수행
     }
 
   });
@@ -154,7 +151,6 @@ const SignUpForm = ({setIsFormLogin}) => {
         onChange={onChangeForm} 
         name="passwordConfirm"
       />
-      {}
       </S.InputBox>
       <BasicButton 
       size={"full"} 

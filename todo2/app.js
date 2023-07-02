@@ -11,7 +11,6 @@ const cors = require('cors')
 const path = require('path')
 const db = require('./models')
 const passport = require('passport')
-
 passportConfig()
 const app = express()
 
@@ -21,19 +20,20 @@ db.sequelize.sync()
 .catch(err => console.log(err))
 
 
-app.use(session({
+app.use(session({ 
   saveUninitialized: false,
   resave: false,
   secret: "1234",
   cookie: {
     sameSite: 'none',// 쿠키의 전송 제한, 강도 설정 가능, none, lax, strict
     httpOnly: true, // 코드 접근을 막을 것인지 통신에만 사용할 건지
-    secure: true // 보안관련 옵션 https
+    secure: false // 보안관련 옵션 https
   }
 }))
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
+
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))

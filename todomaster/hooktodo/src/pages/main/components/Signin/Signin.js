@@ -1,11 +1,8 @@
-import { useRef, useState } from 'react';
+import Axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import BasicButton from '../../../../components/Button/Button';
 import useInputs from '../../../../hooks/use-inputs';
 import * as S from '../../style';
-import theme from '../../../../styles/theme';
-import {useNavigate} from 'react-router-dom';
-import Axios from "axios";
-
 const SignInForm = ()=>{
     const [{email, password},onChangeForm] = useInputs({
         email: '',
@@ -46,23 +43,18 @@ const SignInForm = ()=>{
 
 
     const navigation = useNavigate();
-                       
-
-
-
-
-
     const onPressSignIn = (e) => {
         e.preventDefault();
         // console.log(emailRef.current.value,passwordRef.current.value);
         console.log(e.target.email.value, e.target.password.value); 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        Axios.post("http://localhost:3030/user/sign-in",{ email : email, password : password })
+        Axios.post("https://localhost:3030/user/sign-in",{ email : email, password : password })
         .then((response)=>{
-        console.log(response);
         if(response.data.token){
+            console.log(response)
             alert("로그인이 되었습니다.");
+            console.log()
             return navigation('/todo/1',{
                 state:{
                     email,
@@ -71,11 +63,10 @@ const SignInForm = ()=>{
             })
         }})
         .catch((err)=>{
-            if(err.response.status ===400){
+            if(err.response.status===400){
                 alert("잘못입력하셨습니다.")
             }
         })
-           
         
     };  
     
