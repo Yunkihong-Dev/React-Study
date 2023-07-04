@@ -11,14 +11,13 @@ const cors = require('cors')
 const path = require('path')
 const db = require('./models')
 const passport = require('passport')
+
 passportConfig()
 const app = express()
-
 
 db.sequelize.sync()
 .then(()=> console.log("DB연결 성공"))
 .catch(err => console.log(err))
-
 
 app.use(session({ 
   saveUninitialized: false,

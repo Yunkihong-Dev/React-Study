@@ -49,7 +49,7 @@ const SignInForm = ()=>{
         console.log(e.target.email.value, e.target.password.value); 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        Axios.post("https://localhost:3030/user/sign-in",{ email : email, password : password })
+        Axios.post("http://localhost:3030/user/sign-in",{ email : email, password : password })
         .then((response)=>{
         if(response.data.token){
             console.log(response)
