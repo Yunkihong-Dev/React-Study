@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BasicButton from "../../components/Button/Button";
 import styled from "styled-components";
@@ -9,10 +9,20 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import useModal from "../../hooks/use-modal";
+import  Axios  from "axios";
 
 const TodoPage = () => {
   const params = useParams();
   const [ isModalOpen, toggleModal] = useModal(false);
+  
+  useEffect(()=>{
+  Axios.get("http://localhost:3030/todo/todo-list",
+  {withCredentials:true})
+  .then((res)=> {res.json()})
+  .then((data)=>
+  setTodoList(data.getlists))
+  .catch((data)=>alert(data.message))
+  })
   const [todoList, setTodoList] = useState([
     {
       id: 1,
@@ -32,6 +42,7 @@ const TodoPage = () => {
       content: "content3",
       state: false,
     },
+    
   ]);
 
   const addTodo = (title, content) => {

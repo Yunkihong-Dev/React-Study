@@ -1,8 +1,9 @@
 const express = require('express')
 const TodoListSerivce = require("../service/todo.service")
+
 const router = express.Router()
 
-router.get('/todo-list', TodoListSerivce.loadtodo)
+router.get('/todo-list', async(req,res)=>{ await TodoListSerivce.loadtodo})
 
   // Todo model을 생성
   // Todo CRUD를 구현 find, craete, update, destroy
@@ -10,4 +11,4 @@ router.get('/todo-list', TodoListSerivce.loadtodo)
   
 
 
-module.exports = router
+module.exports = router;

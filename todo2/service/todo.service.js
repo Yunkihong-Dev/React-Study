@@ -10,13 +10,18 @@ const loadtodo = async( req, res) => {
                 userid : GetCookie('usrin')
             }
         });
-        if(!getlists){
-            return res.status(200).json({
-                status: false,
-                message:"할 일 목록이 없습니다."
-            })
-        }
+        console.log("내가만든 쿠키~ : "+GetCookie('usrin'))
+       res.status(200).json({
+            status:true,
+            getlists
+        })
+        
     } catch (err) {
-        console.log(err)
+        res.status(500).json({
+            error:'Internal Server Error'
+        })
     }
 }
+module.export={ 
+    loadtodo
+};
