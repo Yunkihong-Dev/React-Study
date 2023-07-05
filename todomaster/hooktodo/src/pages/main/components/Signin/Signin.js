@@ -49,10 +49,12 @@ const SignInForm = ()=>{
         console.log(e.target.email.value, e.target.password.value); 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        Axios.post("http://localhost:3030/user/sign-in",{ email : email, password : password })
+        Axios.post("http://localhost:3030/user/sign-in",
+        { email : email, password : password},
+        {withCredentials:true}
+        )
         .then((response)=>{
         if(response.data.token){
-            console.log(response)
             alert("로그인이 되었습니다.");
             console.log()
             return navigation('/todo/1',{
@@ -67,7 +69,6 @@ const SignInForm = ()=>{
                 alert("잘못입력하셨습니다.")
             }
         })
-        
     };  
     
     return (

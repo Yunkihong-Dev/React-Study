@@ -24,13 +24,13 @@ app.use(session({
   resave: false,
   secret: "1234",
   cookie: {
-    sameSite: 'none',// 쿠키의 전송 제한, 강도 설정 가능, none, lax, strict
-    httpOnly: true, // 코드 접근을 막을 것인지 통신에만 사용할 건지
+    sameSite: 'strict',// 쿠키의 전송 제한, 강도 설정 가능, none, lax, strict
+    httpOnly: false, // 코드 접근을 막을 것인지 통신에만 사용할 건지
     secure: false // 보안관련 옵션 https
   }
 }))
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(morgan('dev'))

@@ -3,7 +3,7 @@
 const { Sequelize } = require('sequelize');
 const config = require('../config/config')
 const user = require('./user')
-
+const todo = require('./todo')
 
 const env = process.env.NODE_ENV ?? 'development';
 // 환경변수
@@ -21,6 +21,7 @@ const sequelize = new Sequelize(
 ) // db 연결 객체화시키고 연결하기 위해 셋팅
 
 db.User = user;
+db.Todo = todo;
 // 스키마 설정
 
 Object.keys(db).forEach(model => {

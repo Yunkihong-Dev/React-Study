@@ -63,12 +63,12 @@
           id: user.id,
         }, "1234")
 
-        // SetCookie('usrin',JSON.stringify(user.id));
+        SetCookie('usrin',JSON.stringify(user.id));
         console.log('usrin',JSON.stringify(user.id))
         
         console.log('UserId in Cookie : '+GetCookie('usrin'));
         console.log('UserId : ',JSON.stringify(user.id));
-        
+        console.log('token : ',token);        
         res.status(200).json({
           status: true, 
           token,
