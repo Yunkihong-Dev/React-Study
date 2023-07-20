@@ -6,7 +6,6 @@ import { flexAlignCenter, flexCenter } from "../../styles/common";
 import TodoAddModal from "./components/Modal/add-modal";
 import TodoList from "./components/List/todo-list";
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import useModal from "../../hooks/use-modal";
 import  Axios  from "axios";
@@ -14,35 +13,36 @@ import  Axios  from "axios";
 const TodoPage = () => {
   const params = useParams();
   const [ isModalOpen, toggleModal] = useModal(false);
-  
-  useEffect(()=>{
-  Axios.get("http://localhost:3030/todo/todo-list",
-  {withCredentials:true})
-  .then((res)=> {res.json()})
-  .then((data)=>
-  setTodoList(data.getlists))
-  .catch((data)=>alert(data.message))
-  })
+  // useEffect(()=>{
+  //   Axios.get("http://localhost:3030/todo/todo-list",
+  //   {withCredentials:true})
+  //   .then((res)=> {res.json()})
+  //   .then((data)=>
+  //   setTodoList(data.getlists))
+  //   .catch((data)=>alert(data.message))
+  //   })
   const [todoList, setTodoList] = useState([
     {
-      id: 1,
-      title: "example1",
-      content: "content1",
-      state: false,
+    id : 1,
+    title : "example1" ,
+    content : "content1",
+    state : false,
+    checked : true,
     },
     {
-      id: 2,
-      title: "example2",
-      content: "content2",
-      state: false,
+    id:2,
+    title : "example2",
+    content : "content2",
+    state : false,
+    checked : false,
     },
     {
-      id: 3,
-      title: "example3",
-      content: "content3",
-      state: false,
+    id: 3,
+    title : "example3",
+    content : "content3", 
+    state : false,
+    checked : false,
     },
-    
   ]);
 
   const addTodo = (title, content) => {
@@ -53,6 +53,7 @@ const TodoPage = () => {
           state: false,
           title,
           content,
+          checked:false
         };
         resolve(newTodo);
       }, 3000)
@@ -79,6 +80,10 @@ const TodoPage = () => {
     theme: 'colored'
   };
 
+   
+
+
+
   return (
     <>
       {isModalOpen && <TodoAddModal onAddToDo={showTodoToastMessage} onClose={toggleModal} />}
@@ -86,7 +91,7 @@ const TodoPage = () => {
         <Container>
           <Title>List</Title>
           <Content>
-            <TodoList todoList={todoList} />
+            <TodoList todoList={todoList} setTodoList={setTodoList} />
           </Content>
           <ButtonBox>
             <BasicButton variant="primary" size="full" onClick={toggleModal}>

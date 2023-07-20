@@ -96,11 +96,12 @@ const SignUpForm = ({setIsFormLogin}) => {
     if(!isPasswordConfirm) return;
     console.log("email : "+email+"password : "+password)
    
-    axios.post("/user/sign-up", { email: email, password: password })
+    axios.post("http://localhost:3030/user/sign-up", { email: email, password: password })
     .then((response) => {
     console.log(response);
     if (response.status === 200) {
       // 회원가입 성공
+      console.log("회원가입성공");
       const data = response.data.message;
       alert(data);
       setIsFormLogin(true)
@@ -111,11 +112,10 @@ const SignUpForm = ({setIsFormLogin}) => {
       // 회원가입 오류 (이미 사용 중인 이메일)
       const data = error.response.data.message;
       alert(data)
-      console.log(data);
       setIsFormLogin(false);
     } else {
       // 기타 오류
-      alert(error);
+      setIsFormLogin(false);
     }
 
   });

@@ -1,7 +1,7 @@
 export const PALETTE ={
     primary : {
         100: "#CCFFF9",
-        200:"#OBESC9",
+        200: "#OBESC9",
         300: "#00C7AE",
     },
     secondary : "#EBF1F4", 

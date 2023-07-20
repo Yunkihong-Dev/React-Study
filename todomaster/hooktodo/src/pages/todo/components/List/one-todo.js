@@ -1,29 +1,61 @@
-import styled from "styled-components";
-import { flexAlignCenter, flexCenter } from "../../../../styles/common";
+import { faBan, faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faBan, faPen } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import styled from "styled-components";
+import useInput from "../../../../hooks/use-input";
+import { flexAlignCenter, flexCenter } from "../../../../styles/common";
+import theme from "../../../../styles/theme";
 
+const OneTodo = ({ todo, deleteTodo, updateTodo, checkTodo }) => {
+    const { id, state, title, content, checked } = todo;
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [editContent, onChangeEditContent] = useInput(content);
+    const [isChecked, setIsChecked] = useState(checked);
+    const handleSetIsEdit = () => {
+      if (!isEditMode) return setIsEditMode(true);
+      updateTodo(id, editContent);
+      setIsEditMode(false);
+    };
+  
+    const handleTodoDelete = () => {
+      deleteTodo(id);
+    };
+  
+    const handleTodoCheck = () => {
+      checkTodo(id);
+      setIsChecked(!isChecked)
+    };
+  
+    return (
+      <S.Wrapper state={state}>
+        <S.Header>
+            <S.StateBox state={state}>
+            <FontAwesomeIcon
+                icon={faCheck}
+                onClick={handleTodoCheck}
+                style={{ color: isChecked ? theme.PALETTE.primary[300] : "gray" }}
+            />
 
-const OneTodo = ({todo}) => {
-    const { state, title, content } = todo;
-    return ( 
-        <S.Wrapper state={state}>
-             <S.Header>
-                 <S.StateBox state={state}>
-                    <FontAwesomeIcon icon={faCheck} />
-                </S.StateBox>
-                 <S.Title state={state}>
-                    {title}
-                     <div>
-                         <FontAwesomeIcon icon={faPen} />
-                         <FontAwesomeIcon icon={faBan} />
-                    </div>
-                 </S.Title>
-             </S.Header>
-        <S.Content state={state}>{content}</S.Content>
-        </S.Wrapper>
+            </S.StateBox>
+            <S.Title state={state}>
+            {title}
+            <div>
+                <FontAwesomeIcon icon={faPen} onClick={handleSetIsEdit} />
+                <FontAwesomeIcon icon={faBan} onClick={handleTodoDelete} />
+            </div>
+            </S.Title>
+        </S.Header>
+        <S.Content state={state}>
+          {isEditMode ? (
+            <textarea value={editContent} onChange={onChangeEditContent} />
+          ) : (
+            content
+          )}
+        </S.Content>
+      </S.Wrapper>
     );
-};
+  };
+  
 export default OneTodo;
 
 const Wrapper = styled.li`
