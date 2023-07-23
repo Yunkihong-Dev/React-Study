@@ -11,7 +11,7 @@ const MainPage = () => {
   const onClickFormHeader = (e) => {
     const { innerText } = e.target;
     if (innerText === "LOGIN") return (setIsFormLogin(true));
-    setIsFormLogin(false);
+    setIsFormLogin(false); 
   };
   // const handleClickFormHeader = (e) =>{
   // }

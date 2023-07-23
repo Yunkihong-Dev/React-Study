@@ -1,20 +1,16 @@
-import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import {RouterProvider} from "react-router-dom";
+import theme from "./styles/theme";
+import GlobalStyles from "./styles/global";
+import router from "./routes/routing";
 
-function UserList() {
+function App() {
   return (
-    <UL.Headers> 
-    유저 추가하기 
-    </UL.Headers>
-    
+    <ThemeProvider theme={theme}>
+      <GlobalStyles/>
+      <RouterProvider router={router}/>
+    </ThemeProvider>
   );
 }
 
-export default UserList;
-
-const Headers = styled.div`
-  background-color: darkblue;
-`
-
-const UL = {
-  Headers
-};
+export default App;

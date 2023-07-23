@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { flexCenter } from "../../styles/common";
-import theme from "../../styles/theme";
 export const Form = styled.form`
     width: 360px;
     background-color: #ffffff;
