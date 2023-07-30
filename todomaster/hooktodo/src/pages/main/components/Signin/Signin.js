@@ -1,7 +1,7 @@
+import BasicButton from '@components/Button/Button';
+import useInputs from '@hooks/use-inputs';
 import Axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import BasicButton from '../../../../components/Button/Button';
-import useInputs from '../../../../hooks/use-inputs';
 import * as S from '../../style';
 const SignInForm = ()=>{
     const [{email, password},onChangeForm] = useInputs({

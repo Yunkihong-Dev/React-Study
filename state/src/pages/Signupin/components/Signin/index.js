@@ -1,9 +1,11 @@
-const LoginPage = () =>{
+import * as U from "../../../style";
+
+const SignIn = () =>{
     
 
     return(
-        <div>hi this is login page</div>
-        
+        <div>hi this is Signin page</div>
+        <U.InputBox/>
     )
 }
-export default LoginPage;
+export default SignIn;

@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         children:[
             {
                 path: '/',
-                element:<MainPage/>
+                element:<Main Page/>
             },
             {
                 path: '/todo/:todoId',

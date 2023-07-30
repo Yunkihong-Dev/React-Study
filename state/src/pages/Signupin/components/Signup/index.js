@@ -1,9 +1,9 @@
-const LoginPage = () =>{
+const Signup = () =>{
     
 
     return(
-        <div>hi this is login page</div>
+        <div>hi this is Signup page</div>
         
     )
 }
-export default LoginPage;
+export default Signup;

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
-import UserListPage from '../pages/UserListPage'
-import LoginPage from '../pages/Signupin'
+import UserListPage from '../pages/userListPage'
+import SignIn from '../pages/signUpIn/components/Signin'
 import Layout from '../components/Layout'
 
 //export
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         children:[
             {
                 path: '/',
-                element:<LoginPage/>
+                element:<SignIn/>
             },
             {
                 path: '/admin/userList',

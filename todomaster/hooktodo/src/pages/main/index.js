@@ -1,9 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import SignInForm from "./components/Signin/Signin";
 import SignUpForm from "./components/Signup/Signup";
-import { flexCenter } from "../../styles/common";
-import theme , { PALETTE } from "../../styles/theme";
-import { useState } from "react";
+
+import { flexCenter } from "styles/common";
+import { PALETTE } from "styles/theme";
 
 const MainPage = () => {
   const [isFormLogin, setIsFormLogin] = useState(true);

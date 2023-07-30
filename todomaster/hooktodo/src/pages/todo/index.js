@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import BasicButton from "../../components/Button/Button";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
-import { flexAlignCenter, flexCenter } from "../../styles/common";
-import TodoAddModal from "./components/Modal/add-modal";
-import TodoList from "./components/List/todo-list";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import BasicButton from "../../components/Button/Button";
 import useModal from "../../hooks/use-modal";
-import  Axios  from "axios";
+import { flexAlignCenter, flexCenter } from "../../styles/common";
+import TodoList from "./components/List/todo-list";
+import TodoAddModal from "./components/Modal/add-modal";
 
 const TodoPage = () => {
   const params = useParams();
-  const [ isModalOpen, toggleModal] = useModal(false);
+  const [isModalOpen, toggleModal] = useModal(false);
   // useEffect(()=>{
   //   Axios.get("http://localhost:3030/todo/todo-list",
   //   {withCredentials:true})
@@ -23,25 +22,25 @@ const TodoPage = () => {
   //   })
   const [todoList, setTodoList] = useState([
     {
-    id : 1,
-    title : "example1" ,
-    content : "content1",
-    state : false,
-    checked : true,
+      id: 1,
+      title: "example1",
+      content: "content1",
+      state: false,
+      checked: true,
     },
     {
-    id:2,
-    title : "example2",
-    content : "content2",
-    state : false,
-    checked : false,
+      id: 2,
+      title: "example2",
+      content: "content2",
+      state: false,
+      checked: false,
     },
     {
-    id: 3,
-    title : "example3",
-    content : "content3", 
-    state : false,
-    checked : false,
+      id: 3,
+      title: "example3",
+      content: "content3",
+      state: false,
+      checked: false,
     },
   ]);
 
@@ -53,7 +52,7 @@ const TodoPage = () => {
           state: false,
           title,
           content,
-          checked:false
+          checked: false,
         };
         resolve(newTodo);
       }, 3000)
@@ -69,24 +68,22 @@ const TodoPage = () => {
     const title = e.target.title.value;
     const content = e.target.content.value;
     toast.promise(addTodo(title, content), {
-      pending: 'TODO LOADING',
+      pending: "TODO LOADING",
       success: "TODO SUCCESS",
-      error: "TODO ERROR"
+      error: "TODO ERROR",
     });
   };
 
   const toastOption = {
     autoClose: 1000,
-    theme: 'colored'
+    theme: "colored",
   };
-
-   
-
-
 
   return (
     <>
-      {isModalOpen && <TodoAddModal onAddToDo={showTodoToastMessage} onClose={toggleModal} />}
+      {isModalOpen && (
+        <TodoAddModal onAddToDo={showTodoToastMessage} onClose={toggleModal} />
+      )}
       <Wrapper>
         <Container>
           <Title>List</Title>
@@ -118,37 +115,36 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.PALETTE.white};
   border-radius: 8px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  position: relative
-
+  position: relative;
 `;
 const Title = styled.h1`
-    background-color: ${({ theme }) => theme.PALETTE.primary[300]}; 
-    color: ${({ theme }) => theme.PALETTE.fontColor};
-    padding-left: 32px;
-    height: 32px;
-    ${flexAlignCenter};
+  background-color: ${({ theme }) => theme.PALETTE.primary[300]};
+  color: ${({ theme }) => theme.PALETTE.fontColor};
+  padding-left: 32px;
+  height: 32px;
+  ${flexAlignCenter};
 `;
 
 const Content = styled.div`
-    width: 100%;
-    height: calc(100% - 32px); 
-    padding-bottom: 64px; 
-    overflow: scroll;
-    ::-webkit-scrollbar{
-        display: none;
-    }
+  width: 100%;
+  height: calc(100% - 32px);
+  padding-bottom: 64px;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ButtonBox = styled.div`
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    `;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+`;
 
 const S = {
-    Wrapper, 
-    Container, 
-    Title, 
-    ButtonBox,
-    Content
+  Wrapper,
+  Container,
+  Title,
+  ButtonBox,
+  Content,
 };

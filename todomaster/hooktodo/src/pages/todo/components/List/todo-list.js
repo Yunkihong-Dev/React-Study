@@ -1,4 +1,3 @@
-import { useState } from "react";
 import OneTodo from "./one-todo";
 
 const TodoList = ({todoList, setTodoList}) => {
