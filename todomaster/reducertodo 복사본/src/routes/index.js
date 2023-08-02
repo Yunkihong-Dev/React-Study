@@ -1,17 +1,13 @@
-import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components'
 import BasicButton from '../../components/Button/Button'
-import { useTodoStore } from '../../context/todo'
-import { ACTION_TYPE } from '../../consts/action'
 import useModal from '../../hooks/use-modal'
 import { flexAlignCenter, flexCenter } from '../../styles/common'
 import TodoList from './components/List/todo-list'
 import TodoAddModal from './components/Modal/add-modal'
 
 const TodoPage = () => {
-	const params = useParams()
 	const [isModalOpen, toggleModal] = useModal(false)
 	// useEffect(()=>{
 	//   Axios.get("http://localhost:3030/todo/todo-list",
@@ -21,7 +17,29 @@ const TodoPage = () => {
 	//   setTodoList(data.getlists))
 	//   .catch((data)=>alert(data.message))
 	//   })
-	const [todoList, dispatch] = useTodoStore()
+	// const [todoList, setTodoList] = useState([
+	// 	{
+	// 		id: 1,
+	// 		title: 'example12',
+	// 		content: 'content1',
+	// 		state: false,
+	// 		checked: false,
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		title: 'example2',
+	// 		content: 'content2',
+	// 		state: false,
+	// 		checked: false,
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		title: 'example3',
+	// 		content: 'content3',
+	// 		state: false,
+	// 		checked: false,
+	// 	},
+	// ])
 
 	const addTodo = (title, content) => {
 		return new Promise(resolve =>
@@ -37,7 +55,7 @@ const TodoPage = () => {
 			}, 3000),
 		).then(todo => {
 			console.log(todo)
-			dispatch(ACTION_TYPE.oneAddTodo(todo))
+			setTodoList([todo, ...todoList])
 			toggleModal() // 모달 닫기
 		})
 	}
@@ -67,7 +85,7 @@ const TodoPage = () => {
 				<Container>
 					<Title>List</Title>
 					<Content>
-						<TodoList todoList={todoList} />
+						<TodoList todoList={todoList} setTodoList={setTodoList} />
 					</Content>
 					<ButtonBox>
 						<BasicButton variant="primary" size="full" onClick={toggleModal}>
@@ -82,6 +100,7 @@ const TodoPage = () => {
 }
 
 export default TodoPage
+
 const Wrapper = styled.div`
 	height: calc(100vh - 60px);
 	padding-bottom: 60px;
@@ -96,6 +115,7 @@ const Container = styled.div`
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 	position: relative;
 `
+
 const Title = styled.h1`
 	background-color: ${({ theme }) => theme.PALETTE.primary[300]};
 	color: ${({ theme }) => theme.PALETTE.fontColor};

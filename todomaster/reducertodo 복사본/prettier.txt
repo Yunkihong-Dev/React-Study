@@ -20,28 +20,3 @@ pm i prettier eslint eslint-plugin-prettier eslint-plugin-react eslint-plugin-un
 
     eslint-plugin-unused-imports
     사용하지 않는 1mport (참조)된 컴포트 및 모듈들을 제거하는 확장 프로그램
-
-
-============================================================================================
-    
-    husky
-
-    git hook을 더 편하게 사용할 수 있는 npm 패키지
-
-    git hook이란?
-
-    git과 관련된 어떤 이벤트가 발생했을 때 특정 스크립트를 실행할 수 있도록 하는 기능
-
-    event?
-    
-    commit 
-    rebase
-    merge
-    push
-    ...
-
-(pre, post)
-
-pre -> 이벤트 발생 이전
-post -> 이벤트 발생 이후
-

@@ -1,10 +1,9 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components'
 import BasicButton from '../../components/Button/Button'
-import { useTodoStore } from '../../context/todo'
-import { ACTION_TYPE } from '../../consts/action'
 import useModal from '../../hooks/use-modal'
 import { flexAlignCenter, flexCenter } from '../../styles/common'
 import TodoList from './components/List/todo-list'
@@ -21,7 +20,29 @@ const TodoPage = () => {
 	//   setTodoList(data.getlists))
 	//   .catch((data)=>alert(data.message))
 	//   })
-	const [todoList, dispatch] = useTodoStore()
+	const [todoList, setTodoList] = useState([
+		{
+			id: 1,
+			title: 'example1',
+			content: 'content1',
+			state: false,
+			checked: false,
+		},
+		{
+			id: 2,
+			title: 'example2',
+			content: 'content2',
+			state: false,
+			checked: false,
+		},
+		{
+			id: 3,
+			title: 'example3',
+			content: 'content3',
+			state: false,
+			checked: false,
+		},
+	])
 
 	const addTodo = (title, content) => {
 		return new Promise(resolve =>
@@ -37,7 +58,7 @@ const TodoPage = () => {
 			}, 3000),
 		).then(todo => {
 			console.log(todo)
-			dispatch(ACTION_TYPE.oneAddTodo(todo))
+			setTodoList([todo, ...todoList])
 			toggleModal() // 모달 닫기
 		})
 	}
@@ -67,7 +88,7 @@ const TodoPage = () => {
 				<Container>
 					<Title>List</Title>
 					<Content>
-						<TodoList todoList={todoList} />
+						<TodoList todoList={todoList} setTodoList={setTodoList} />
 					</Content>
 					<ButtonBox>
 						<BasicButton variant="primary" size="full" onClick={toggleModal}>

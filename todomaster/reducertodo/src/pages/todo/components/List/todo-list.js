@@ -1,33 +1,24 @@
+import { ACTION_TYPE } from '../../../../consts/action'
+import { useTodoStore } from '../../../../context/todo'
 import OneTodo from './one-todo'
 
-const TodoList = ({ todoList, setTodoList }) => {
+const TodoList = () => {
+	const [todoList, dispatch] = useTodoStore()
 	const updateTodo = (id, content) => {
-		const _todoList = [...todoList]
-		const todo = _todoList.find(todo => todo.id === id)
-
-		/**
-		 *불뱐성을 지키기 위해 find는 새로운 배열을 반환하지 않기 때문에
-		 *기존에 있는 TodoList를 깊은 복사하여 다른 아모리 주소값을 갖게하고 수정한다.
-		 */
-
-		todo.content = content
-		setTodoList(_todoList)
+		dispatch(ACTION_TYPE.oneUpdateTodo(id, content))
 	}
 
 	const deleteTodo = id => {
 		if (window.confirm('정말 삭제하시겠습니까?')) {
-			const _todoList = todoList.filter(todo => todo.id !== id)
-			setTodoList(_todoList)
+			dispatch(ACTION_TYPE.oneDeleteTodo(id))
 		}
 	}
 
 	const checkTodo = (id, checked) => {
 		const _todoList = [...todoList]
 		const todo = _todoList.find(todo => todo.id === id)
-		console.log('id : ' + todo.id + ' checked : ' + todo.checked)
 		todo.checked = !todo.checked
-		console.log('id : ' + todo.id + ' checked : ' + todo.checked)
-		setTodoList(_todoList)
+		dispatch(ACTION_TYPE.oneCheckTodo(id))
 	}
 	return (
 		<>
